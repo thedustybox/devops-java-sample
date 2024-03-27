@@ -71,7 +71,9 @@ pipeline {
         }
 
         stage('deploy to production') {
-
+          when{
+            branch 'master'
+          }
           steps {
             input(id: 'deploy-to-production', message: 'deploy to production?')
             kubernetesDeploy(configs: 'deploy/prod-ol/**', enableConfigSubstitution: true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
